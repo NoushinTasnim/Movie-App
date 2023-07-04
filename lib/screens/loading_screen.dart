@@ -26,7 +26,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
   void getData() async {
     try {
       final movies = await fetchMovies('https://api.themoviedb.org/3/movie/popular');
-      final series = await fetchSeries('https://api.themoviedb.org/3/tv/top_rated');
+      final series = await fetchSeries('https://api.themoviedb.org/3/tv/popular');
       print(series);
       Navigator.push(context, MaterialPageRoute(builder: (context) {
         return MainScreen();

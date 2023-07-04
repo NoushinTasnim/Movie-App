@@ -14,86 +14,114 @@ class PlayScreen extends StatefulWidget {
 
 class _PlayScreenState extends State<PlayScreen> {
   int selectedIndex = 0;
-  late List<YoutubePlayerController> controllers;
-
-  @override
-  void initState() {
-    super.initState();
-    controllers = widget.videos.map((video) {
-      final String videoKey = video['key'] ?? '';
-      return YoutubePlayerController(
-        initialVideoId: videoKey,
-        flags: YoutubePlayerFlags(
-          autoPlay: false,
-          mute: false,
-        ),
-      );
-    }).toList();
-  }
-
-  @override
-  void dispose() {
-    for (var controller in controllers) {
-      controller.dispose();
-    }
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kBgCol,
-      body: Stack(
-        children: [
-          Column(
-            children: [
-              Container(
-                width: double.infinity,
-                height: 300,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                ),
-                child: YoutubePlayer(
-                  controller: controllers[selectedIndex],
-                  showVideoProgressIndicator: true,
-                ),
+      body: Container(
+        child: Stack(
+          children: [
+            SafeArea(
+              child: BackButton(
+                color: Colors.white,
               ),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: widget.videos.length,
-                  itemBuilder: (context, index) {
-                    final video = widget.videos[index];
-                    final String videoName = video['name'] ?? '';
-
-                    return ListTile(
-                      leading: Icon(
-                        selectedIndex == index ? Icons.pause_circle : Icons.play_circle,
-                        color: selectedIndex == index ? kSecondaryColor : Colors.white,
+            ),
+            Column(
+              children: [
+                Container(
+                  width: double.infinity,
+                  height: 300,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                  ),
+                  child: youTubePlayer(key: UniqueKey(), widget: widget, selectedIndex: selectedIndex),
+                ),
+                Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: kBgCol,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black,
+                        offset: Offset(0,0),
+                        blurRadius: 10,
+                        spreadRadius: 8
+                      )
+                    ]
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(kDefaultPadding),
+                    child: Text(
+                      widget.videos[selectedIndex]['name']!,
+                      style: GoogleFonts.nunitoSans(
+                        fontSize: 20,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
                       ),
-                      title: Text(
-                        videoName,
-                        style: GoogleFonts.nunitoSans(
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: widget.videos.length,
+                    itemBuilder: (context, index) {
+                      final video = widget.videos[index];
+                      final String videoName = video['name'] ?? '';
+                      final String videoKey = video['key'] ?? '';
+
+                      return ListTile(
+                        selectedColor: kSecondaryColor,
+                        leading: Icon(
+                          selectedIndex == index ? Icons.pause_circle : Icons.play_circle,
                           color: selectedIndex == index ? kSecondaryColor : Colors.white,
                         ),
-                      ),
-                      onTap: () {
-                        setState(() {
-                          selectedIndex = index;
-                        });
-                      },
-                    );
-                  },
+                        title: Text(
+                          videoName,
+                          style: GoogleFonts.nunitoSans(
+                            color: selectedIndex == index ? kSecondaryColor : Colors.white,
+                          ),
+                        ),
+                        onTap: () {
+                          setState(() {
+                            selectedIndex = index;
+                            youTubePlayer(key: UniqueKey(), widget: widget, selectedIndex: selectedIndex);
+                          });
+                        },
+                      );
+                    },
+                  ),
                 ),
-              ),
-            ],
-          ),
-          SafeArea(
-            child: BackButton(
-              color: Colors.white,
+              ],
             ),
-          )
-        ],
+          ],
+        ),
       ),
+    );
+  }
+}
+
+class youTubePlayer extends StatelessWidget {
+  const youTubePlayer({
+    super.key,
+    required this.widget,
+    required this.selectedIndex,
+  });
+
+  final PlayScreen widget;
+  final int selectedIndex;
+
+  @override
+  Widget build(BuildContext context) {
+    return YoutubePlayer(
+      controller: YoutubePlayerController(
+        initialVideoId: widget.videos[selectedIndex]['key'] ?? '',
+        flags: YoutubePlayerFlags(
+          autoPlay: true,
+          mute: false,
+        ),
+      ),
+      showVideoProgressIndicator: true,
     );
   }
 }

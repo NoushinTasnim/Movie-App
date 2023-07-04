@@ -21,6 +21,13 @@ class _CategoryListState extends State<CategoryList> {
     'Coming Soon',
   ];
 
+  List<String> cats = [
+    'popular',
+    'now_playing',
+    'top_rated',
+    'upcoming',
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -41,42 +48,13 @@ class _CategoryListState extends State<CategoryList> {
           setState(() {
             selectedCategory = index;
           });
-          if (index == 1) {
-            try {
-              print('waiting for tonight');
-              final movies = await fetchMovies('https://api.themoviedb.org/3/movie/now_playing');
+          try {
+            print('waiting for tonight');
+            final movies = await fetchMovies('https://api.themoviedb.org/3/movie/now_playing');
               // Update your movie list using the fetched movies
-            } catch (error) {
+          } catch (error) {
               // Handle any errors that occurred during fetching
-              print('Failed to fetch movies: $error');
-            }
-          }else if (index == 0) {
-            try {
-              print('waiting for tonight');
-              final movies = await fetchMovies('https://api.themoviedb.org/3/movie/popular');
-              // Update your movie list using the fetched movies
-            } catch (error) {
-              // Handle any errors that occurred during fetching
-              print('Failed to fetch movies: $error');
-            }
-          }else if (index == 3) {
-            try {
-              print('waiting for tonight');
-              final movies = await fetchMovies('https://api.themoviedb.org/3/movie/upcoming');
-              // Update your movie list using the fetched movies
-            } catch (error) {
-              // Handle any errors that occurred during fetching
-              print('Failed to fetch movies: $error');
-            }
-          }else if (index == 2) {
-            try {
-              print('waiting for tonight');
-              final movies = await fetchMovies('https://api.themoviedb.org/3/movie/top_rated');
-              // Update your movie list using the fetched movies
-            } catch (error) {
-              // Handle any errors that occurred during fetching
-              print('Failed to fetch movies: $error');
-            }
+            print('Failed to fetch movies: $error');
           }
         },
         child: Column(

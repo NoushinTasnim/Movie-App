@@ -12,12 +12,14 @@ class TitleDurationFab extends StatefulWidget {
     required this.year,
     required this.id,
     required this.text,
+    required this.text2,
   });
 
   final String title;
   final String year;
   final int id;
   final String text;
+  final String text2;
 
   @override
   State<TitleDurationFab> createState() => _TitleDurationFabState();
@@ -30,7 +32,7 @@ class _TitleDurationFabState extends State<TitleDurationFab> {
   Future<void> fetchVideos() async {
     final apiKey = '5f80bc0b10a444db9c045e07de26b900'; // Replace with your actual API key
     final url = 'https://api.themoviedb.org/3/' +widget.text + '/${widget.id}/videos?api_key=$apiKey';
-
+    print(url);
     try {
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
@@ -52,6 +54,16 @@ class _TitleDurationFabState extends State<TitleDurationFab> {
     } catch (error) {
       print('Error fetching videos: $error');
     }
+  }
+
+  void showSnackbar(BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: kBgCol,
+        content: Text('No video is available for this content'),
+        duration: Duration(seconds: 3),
+      ),
+    );
   }
 
   @override
@@ -78,7 +90,13 @@ class _TitleDurationFabState extends State<TitleDurationFab> {
                   height: kDefaultPadding/2,
                 ),
                 Text(
-                 widget.year,
+                 widget.text2,
+                  style: GoogleFonts.nunitoSans(
+                    color: Colors.grey,
+                  ),
+                ),
+                Text(
+                  widget.year,
                   style: GoogleFonts.nunitoSans(
                     color: Colors.grey,
                   ),
@@ -92,10 +110,16 @@ class _TitleDurationFabState extends State<TitleDurationFab> {
             child: MaterialButton(
               onPressed: () async {
                 await fetchVideos();
-                Navigator.push(
+                if(videos.isNotEmpty){
+                  Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => PlayScreen(videos: videos,))
-                );
+                    MaterialPageRoute(builder:
+                        (context) => PlayScreen(videos: videos,))
+                  );
+                }
+                else{
+                  showSnackbar(context);
+                }
               },
               color: kSecondaryColor,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),

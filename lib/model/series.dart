@@ -9,9 +9,11 @@ class Series {
   final String plot, title, poster, backdrop, year;
   final List<Map> cast;
   final String seasons;
+  final String episodes;
 
   Series( {
     required this.seasons,
+    required this.episodes,
     required this.poster,
     required this.backdrop,
     required this.title,
@@ -105,6 +107,7 @@ final apiKey = '5f80bc0b10a444db9c045e07de26b900';
 final mainUrl = 'https://api.themoviedb.org/3';
 
 Future<Iterable<Null>> fetchSeries(String url) async {
+  series.clear();
   final response = await http.get(Uri.parse('$url?api_key=$apiKey'));
   if (response.statusCode == 200) {
     final jsonResponse = json.decode(response.body);
@@ -117,14 +120,18 @@ Future<Iterable<Null>> fetchSeries(String url) async {
       final castResponse = await http.get(Uri.parse('$mainUrl/tv/${seriesData['id']}/aggregate_credits?api_key=$apiKey'));
       final castJsonResponse = json.decode(castResponse.body);
       final List<dynamic> castData = castJsonResponse['cast'];
+      final seriesRes = await http.get(Uri.parse('https://api.themoviedb.org/3/tv/${seriesData['id']}?api_key=$apiKey'));
+      final seriesResponse = json.decode(seriesRes.body);
+      print(seriesResponse);
 
       series.add(Series(
-        seasons: seriesData['number_of_seasons'].toString(),
+        seasons: seriesResponse['number_of_seasons'].toString(),
+        episodes: seriesResponse['number_of_episodes'].toString(),
         poster: 'https://image.tmdb.org/t/p/w500${seriesData['poster_path']}',
         backdrop: 'https://image.tmdb.org/t/p/w500${seriesData['backdrop_path']}',
         title: seriesData['name'],
         id: seriesData['id'],
-        year: seriesData['first_air_date'] != null ? seriesData['first_air_date'].substring(0, 4) : '',
+        year: seriesResponse['first_air_date'].toString(),
         numOfRatings: seriesData['vote_count'],
         criticsReview: seriesData['vote_average'].toInt(),
         metascoreRating: seriesData['popularity'].toInt(),
@@ -137,6 +144,7 @@ Future<Iterable<Null>> fetchSeries(String url) async {
           'image': 'https://image.tmdb.org/t/p/w500${castMember['profile_path']}',
         }).toList(), // Populate cast data as needed
       ));
+      print(series[series.length-1].title);
     }));
   } else {
     throw Exception('Failed to fetch series');

@@ -37,6 +37,7 @@ class Body extends StatelessWidget {
               title: movie.title,
               id: movie.id,
               text: 'movie',
+              text2: 'Runtime: ' + movie.runtime + " min",
               year: "Released on: " + movie.year.toString(),
             ),
             Genres(movie: movie),
@@ -60,7 +61,8 @@ class Body extends StatelessWidget {
                 ),
               ),
             ),
-            CastAndCrew(casts: movie.cast),
+            if (movie.cast.isNotEmpty)
+              CastAndCrew(casts: movie.cast),
           ],
         ),
       ),

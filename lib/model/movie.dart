@@ -2,10 +2,10 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class Movie {
-  final int id, year, numOfRatings, criticsReview, metascoreRating;
+  final int id, numOfRatings, criticsReview, metascoreRating;
   final double rating;
   final List<String> genre;
-  final String plot, title, poster, backdrop;
+  final String year, plot, title, poster, backdrop;
   final List<Map<String, dynamic>> cast;
   final String runtime;
 
@@ -76,15 +76,17 @@ Future<Iterable<Null>> fetchMovies(String baseUrl) async {
       final castResponse = await http.get(Uri.parse('$mainUrl/movie/${movieData['id']}/credits?api_key=$apiKey'));
       final castJsonResponse = json.decode(castResponse.body);
       final List<dynamic> castData = castJsonResponse['cast'];
+      final movieRes = await http.get(Uri.parse('https://api.themoviedb.org/3/movie/${movieData['id']}?api_key=$apiKey'));
+      final movieResponse = json.decode(movieRes.body);
 
       movies.add(
         Movie(
-          runtime: movieData['runtime'].toString(),
+          runtime: movieResponse['runtime'].toString(),
           poster: 'https://image.tmdb.org/t/p/w500${movieData['poster_path']}',
           backdrop: 'https://image.tmdb.org/t/p/w500${movieData['backdrop_path']}',
           title: movieData['title'],
           id: movieData['id'],
-          year: int.parse(movieData['release_date'].substring(0, 4)),
+          year: movieResponse['release_date'],
           numOfRatings: movieData['vote_count'],
           criticsReview: movieData['vote_average'].toInt(),
           metascoreRating: movieData['popularity'].toInt(),

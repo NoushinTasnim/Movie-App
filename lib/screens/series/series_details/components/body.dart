@@ -35,22 +35,25 @@ class Body extends StatelessWidget {
             ),
             TitleDurationFab(
               id: series.id,
-              text : 'series',
+              text : 'tv',
+              text2 : '${series.seasons} Season/s  ${series.episodes} Total Episodes',
               title: series.title,
-              year: "First aired on:" + series.year,
+              year: series.year.isNotEmpty ? "First aired: " + series.year : '',
             ),
             Genres(series: series),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: kDefaultPadding/2, horizontal: kDefaultPadding),
-              child: Text(
-                'Plot Summary',
-                style: GoogleFonts.nunitoSans(
-                  color: Colors.white,
-                  fontSize: 20,
+            if(series.plot.isNotEmpty)
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: kDefaultPadding/2, horizontal: kDefaultPadding),
+                child: Text(
+                  'Plot Summary',
+                  style: GoogleFonts.nunitoSans(
+                    color: Colors.white,
+                    fontSize: 20,
+                  ),
                 ),
               ),
-            ),
-            Padding(
+            if(series.plot.isNotEmpty)
+              Padding(
               padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
               child: Text(
                 '${series.plot}',
@@ -60,7 +63,8 @@ class Body extends StatelessWidget {
                 ),
               ),
             ),
-            CastAndCrew(casts: series.cast),
+            if (series.cast.isNotEmpty)
+              CastAndCrew(casts: series.cast),
           ],
         ),
       ),

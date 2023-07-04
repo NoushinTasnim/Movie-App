@@ -67,7 +67,7 @@ class _backDropAndRatingState extends State<backDropAndRating> {
                   BoxShadow(
                     offset: Offset(0,5),
                     blurRadius: 50,
-                    color: Colors.grey.withOpacity(0.2),
+                    color: Colors.black,
                   ),
                 ],
               ),
