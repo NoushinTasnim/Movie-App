@@ -22,11 +22,6 @@ class _PlayScreenState extends State<PlayScreen> {
       body: Container(
         child: Stack(
           children: [
-            SafeArea(
-              child: BackButton(
-                color: Colors.white,
-              ),
-            ),
             Column(
               children: [
                 Container(
@@ -93,6 +88,11 @@ class _PlayScreenState extends State<PlayScreen> {
                   ),
                 ),
               ],
+            ),
+            const SafeArea(
+              child: BackButton(
+                color: Colors.white,
+              ),
             ),
           ],
         ),

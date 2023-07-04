@@ -25,6 +25,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kBgCol,
       body: PageTransitionSwitcher(
         transitionBuilder: (
             child,
@@ -38,31 +39,51 @@ class _MainScreenState extends State<MainScreen> {
         ),
         child: pageList[pageIndex],
       ),
-      bottomNavigationBar: GNav(
-        selectedIndex: pageIndex,
-        onTabChange: (value){
-          print(value);
-          setState(() {
-            pageIndex = value;
-          });
-        },
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        backgroundColor: kBgCol,
-        rippleColor: kTextLightColor,
-        color: Colors.white,
-        activeColor: kSecondaryColor,
-        gap: kDefaultPadding/2,
-        padding: EdgeInsets.all(kDefaultPadding),
-        tabs: [
-          GButton(
-              icon: Icons.local_movies,
-              text: 'Movies',
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          color: kBgCol,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black,
+              blurRadius: 4,
+              spreadRadius: 1,
+              offset: Offset(0, -2),
+            ),
+          ],
+          borderRadius: BorderRadius.only(
+            topLeft:Radius.circular(50),
+            topRight: Radius.circular(50),
           ),
-          GButton(
-              icon: Icons.tv,
-              text: 'Series',
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: GNav(
+            selectedIndex: pageIndex,
+            onTabChange: (value){
+              print(value);
+              setState(() {
+                pageIndex = value;
+              });
+            },
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            backgroundColor: Colors.transparent,
+            rippleColor: kTextLightColor,
+            color: Colors.white,
+            activeColor: kSecondaryColor,
+            gap: kDefaultPadding/2,
+            padding: EdgeInsets.symmetric(horizontal: kDefaultPadding, vertical: kDefaultPadding/2),
+            tabs: [
+              GButton(
+                  icon: Icons.local_movies,
+                  text: 'Movies',
+              ),
+              GButton(
+                  icon: Icons.tv,
+                  text: 'Series',
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

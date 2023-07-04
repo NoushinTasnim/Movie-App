@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app/constants.dart';
+import 'package:movie_app/screens/details/components/similar_movies.dart';
 import '../../../components/title_duration_fab.dart';
 import '../../../model/movie.dart';
 import '../../../components/backDrop_rating.dart';
@@ -63,6 +64,7 @@ class Body extends StatelessWidget {
             ),
             if (movie.cast.isNotEmpty)
               CastAndCrew(casts: movie.cast),
+            SimilarMovies(similarMovies: movie.similar),
           ],
         ),
       ),

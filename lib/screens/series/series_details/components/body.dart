@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app/constants.dart';
+import 'package:movie_app/screens/series/series_details/components/similarSeries.dart';
 import '../../../../model/series.dart';
 import '../../../../components/backDrop_rating.dart';
 import 'cast_crew.dart';
@@ -65,6 +66,8 @@ class Body extends StatelessWidget {
             ),
             if (series.cast.isNotEmpty)
               CastAndCrew(casts: series.cast),
+            if (series.similar.isNotEmpty)
+              SimilarSeries(similarSeries: series.similar),
           ],
         ),
       ),

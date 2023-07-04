@@ -8,6 +8,7 @@ class Series {
   final List<String> genre;
   final String plot, title, poster, backdrop, year;
   final List<Map> cast;
+  final List<Map> similar;
   final String seasons;
   final String episodes;
 
@@ -16,6 +17,7 @@ class Series {
     required this.episodes,
     required this.poster,
     required this.backdrop,
+    required this.similar,
     required this.title,
     required this.id,
     required this.year,
@@ -119,7 +121,15 @@ Future<Iterable<Null>> fetchSeries(String url) async {
 
       final castResponse = await http.get(Uri.parse('$mainUrl/tv/${seriesData['id']}/aggregate_credits?api_key=$apiKey'));
       final castJsonResponse = json.decode(castResponse.body);
+
+      final similarRes = await http.get(Uri.parse('https://api.themoviedb.org/3/tv/${seriesData['id']}/similar?api_key=$apiKey'));
+      final similarJsonResponse = json.decode(similarRes.body);
+
+      print(similarJsonResponse);
+
+      final List<dynamic> similarData = similarJsonResponse['results'];
       final List<dynamic> castData = castJsonResponse['cast'];
+
       final seriesRes = await http.get(Uri.parse('https://api.themoviedb.org/3/tv/${seriesData['id']}?api_key=$apiKey'));
       final seriesResponse = json.decode(seriesRes.body);
       print(seriesResponse);
@@ -142,9 +152,13 @@ Future<Iterable<Null>> fetchSeries(String url) async {
           'orginalName': castMember['name'],
           'movieName': castMember['roles'][0]['character'],
           'image': 'https://image.tmdb.org/t/p/w500${castMember['profile_path']}',
-        }).toList(), // Populate cast data as needed
+        }).toList(),
+        similar: similarData.map((sim) => {
+          'title': sim['name'],
+          'poster': 'https://image.tmdb.org/t/p/w500${sim['poster_path']}',
+        }).toList(),
       ));
-      print(series[series.length-1].title);
+      print(series[series.length-1].similar);
     }));
   } else {
     throw Exception('Failed to fetch series');
