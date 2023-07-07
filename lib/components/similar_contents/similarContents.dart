@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:movie_app/components/similar_contents/similarContentCard.dart';
 import 'package:movie_app/constants.dart';
-import '../../../../components/cast_card.dart';
 
-class CastAndCrew extends StatelessWidget {
+class SimilarContent extends StatelessWidget {
 
-  final List casts;
+  final List similarContent;
 
-  const CastAndCrew({
+  SimilarContent({
     super.key,
-    required this.casts
+    required this.similarContent
   });
 
   @override
@@ -20,7 +20,7 @@ class CastAndCrew extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Cast & Crew',
+            'Similar Contents',
             style: GoogleFonts.nunitoSans(
               fontWeight: FontWeight.w500,
               fontSize: 20,
@@ -31,15 +31,15 @@ class CastAndCrew extends StatelessWidget {
             height: kDefaultPadding,
           ),
           SizedBox(
-            height: 200,
+            height: 250,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-                itemCount: casts.length,
-                itemBuilder: (context, index) => CastCard(
-                  image: casts[index]['image'],
-                  name: casts[index]['orginalName'],
-                  character: casts[index]['movieName'],
-                )
+              itemCount: similarContent.length,
+              itemBuilder: (context, index) => SimilarContentCard(
+                image: similarContent[index]['poster'],
+                name: similarContent[index]['title'],
+                character: '',
+              ),
             ),
           )
         ],

@@ -1,10 +1,10 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:movie_app/screens/home/home_screen.dart';
 import 'package:movie_app/screens/series/series_screen.dart';
 
 import '../constants.dart';
+import 'movies/home/home_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -51,8 +51,8 @@ class _MainScreenState extends State<MainScreen> {
             ),
           ],
           borderRadius: BorderRadius.only(
-            topLeft:Radius.circular(50),
-            topRight: Radius.circular(50),
+            topLeft:Radius.circular(40),
+            topRight: Radius.circular(40),
           ),
         ),
         child: Padding(

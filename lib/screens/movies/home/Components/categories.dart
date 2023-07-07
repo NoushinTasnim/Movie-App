@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app/model/movie.dart';
-
-import '../../../constants.dart';
+import '../../../../constants.dart';
 
 class CategoryList extends StatefulWidget {
   const CategoryList({super.key});
@@ -76,7 +75,7 @@ class _CategoryListState extends State<CategoryList> {
                 borderRadius: BorderRadius.circular(10),
                 color: index==selectedCategory ? kSecondaryColor : Colors.transparent,
               ),
-            )
+            ),
           ],
         ),
       ),

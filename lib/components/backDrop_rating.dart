@@ -34,7 +34,7 @@ class _backDropAndRatingState extends State<backDropAndRating> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: widget.size.height * 0.4,
       child: Stack(
         children: [

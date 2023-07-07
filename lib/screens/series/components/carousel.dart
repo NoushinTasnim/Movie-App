@@ -4,9 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_app/screens/series/components/series_car.dart';
 
 import '../../../constants.dart';
-import '../../../model/movie.dart';
 import '../../../model/series.dart';
-import '../../home/Components/movie_card.dart';
 
 class Carousel extends StatefulWidget {
   const Carousel({super.key});

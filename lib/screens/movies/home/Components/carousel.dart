@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:movie_app/constants.dart';
-import '../../../model/movie.dart';
+import '../../../../model/movie.dart';
 import 'movie_card.dart';
 
 class Carousel extends StatefulWidget {
@@ -15,7 +15,6 @@ class _CarouselState extends State<Carousel> {
 
   late PageController _pageController;
   int initialPage = 1;
-
 
   @override
   void initState() {

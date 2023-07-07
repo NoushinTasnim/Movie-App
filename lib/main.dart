@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/model/series.dart';
-import 'package:movie_app/screens/home/home_screen.dart';
 import 'package:movie_app/screens/loading_screen.dart';
 import 'package:movie_app/screens/main_screen.dart';
 

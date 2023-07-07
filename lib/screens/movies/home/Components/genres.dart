@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import '../../../constants.dart';
-import '../../../genre_card.dart';
-import '../../../model/movie.dart';
+import '../../../../constants.dart';
+import '../../../../genre_card.dart';
 
 class Genre extends StatefulWidget {
   const Genre({super.key});

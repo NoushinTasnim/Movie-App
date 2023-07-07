@@ -1,9 +1,9 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:movie_app/screens/details/details_screen.dart';
-import '../../../constants.dart';
-import '../../../model/movie.dart';
+import 'package:movie_app/screens/movies/details/details_screen.dart';
+import '../../../../constants.dart';
+import '../../../../model/movie.dart';
 
 class MovieCard extends StatelessWidget {
 

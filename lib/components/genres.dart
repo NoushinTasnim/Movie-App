@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-import '../../../constants.dart';
-import '../../../genre_card.dart';
-import '../../../model/movie.dart';
+import '../constants.dart';
+import '../genre_card.dart';
+import '../model/movie.dart';
 
 class Genres extends StatelessWidget {
   const Genres({
     super.key,
-    required this.movie,
+    required this.genre,
   });
 
-  final Movie movie;
+  final List genre;
 
   @override
   Widget build(BuildContext context) {
@@ -20,10 +20,10 @@ class Genres extends StatelessWidget {
         height: 36,
         child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: movie.genre.length,
+            itemCount: genre.length,
             itemBuilder: (context, index) => GenreCard(
               selectedGenre: -1,
-              genre: movie.genre[index],
+              genre: genre[index],
               index: index,
             )),
       ),

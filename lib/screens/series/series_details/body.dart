@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app/constants.dart';
-import 'package:movie_app/screens/series/series_details/components/similarSeries.dart';
-import '../../../../model/series.dart';
-import '../../../../components/backDrop_rating.dart';
-import 'cast_crew.dart';
-import 'genres.dart';
-import '../../../../components/title_duration_fab.dart';
+import '../../../components/genres.dart';
+import '../../../components/similar_contents/similarContents.dart';
+import '../../../model/series.dart';
+import '../../../components/backDrop_rating.dart';
+import '../../../components/cast_components/cast_crew.dart';
+import '../../../components/title_duration_fab.dart';
 
 class Body extends StatelessWidget {
 
@@ -41,7 +41,7 @@ class Body extends StatelessWidget {
               title: series.title,
               year: series.year.isNotEmpty ? "First aired: " + series.year : '',
             ),
-            Genres(series: series),
+            Genres(genre: series.genre),
             if(series.plot.isNotEmpty)
               Padding(
                 padding: EdgeInsets.symmetric(vertical: kDefaultPadding/2, horizontal: kDefaultPadding),
@@ -67,7 +67,7 @@ class Body extends StatelessWidget {
             if (series.cast.isNotEmpty)
               CastAndCrew(casts: series.cast),
             if (series.similar.isNotEmpty)
-              SimilarSeries(similarSeries: series.similar),
+              SimilarContent(similarContent: series.similar),
           ],
         ),
       ),

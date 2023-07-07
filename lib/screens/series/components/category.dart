@@ -57,7 +57,7 @@ class _CategoryListState extends State<CategoryList> {
               // Update your movie list using the fetched movies
           } catch (error) {
               // Handle any errors that occurred during fetching
-            print('Failed to fetch movies: $error');
+            print('Failed to fetch series: $error');
           }
         },
         child: Column(

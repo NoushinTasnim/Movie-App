@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:transparent_image/transparent_image.dart';
+import '../../../constants.dart';
 
-import '../constants.dart';
+class SimilarContentCard extends StatelessWidget {
 
-class CastCard extends StatelessWidget {
-  const CastCard({
+  const SimilarContentCard({
     super.key,
     required this.image,
     required this.name,
@@ -19,18 +19,18 @@ class CastCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 80,
+      width: 100,
       margin: EdgeInsets.only(right: kDefaultPadding),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            height: 80,
-            width: 80,
+            height: 160,
+            width: 100,
             decoration: BoxDecoration(
-              shape: BoxShape.circle,
+              borderRadius: BorderRadius.circular(30),
             ),
-            child: ClipOval(
+            child: ClipRect(
               child: FadeInImage.memoryNetwork(
                 placeholder: kTransparentImage, // Placeholder image (e.g., a transparent image)
                 image: image, // Image URL
@@ -39,7 +39,7 @@ class CastCard extends StatelessWidget {
                 fadeOutDuration: Duration(milliseconds: 200),
                 imageErrorBuilder: (context, error, stackTrace) {
                   return Icon(
-                    Icons.person,
+                    Icons.movie,
                     color: Colors.white,
                     size: 50,
                   ); // Show an error icon if image fails to load

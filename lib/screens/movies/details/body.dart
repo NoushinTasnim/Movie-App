@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app/constants.dart';
-import 'package:movie_app/screens/details/components/similar_movies.dart';
+import 'package:movie_app/components/similar_contents/similarContents.dart';
+import '../../../components/backDrop_rating.dart';
+import '../../../components/cast_components/cast_crew.dart';
+import '../../../components/genres.dart';
 import '../../../components/title_duration_fab.dart';
 import '../../../model/movie.dart';
-import '../../../components/backDrop_rating.dart';
-import 'cast_crew.dart';
-import 'genres.dart';
 
 class Body extends StatelessWidget {
 
@@ -41,7 +41,7 @@ class Body extends StatelessWidget {
               text2: 'Runtime: ' + movie.runtime + " min",
               year: "Released on: " + movie.year.toString(),
             ),
-            Genres(movie: movie),
+            Genres(genre: movie.genre),
             Padding(
               padding: EdgeInsets.symmetric(vertical: kDefaultPadding/2, horizontal: kDefaultPadding),
               child: Text(
@@ -64,7 +64,8 @@ class Body extends StatelessWidget {
             ),
             if (movie.cast.isNotEmpty)
               CastAndCrew(casts: movie.cast),
-            SimilarMovies(similarMovies: movie.similar),
+            if (movie.similar.isNotEmpty)
+            SimilarContent(similarContent: movie.similar),
           ],
         ),
       ),
